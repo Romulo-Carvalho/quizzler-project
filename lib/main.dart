@@ -39,10 +39,7 @@ class _QuizPageState extends State<QuizPage> {
               child: Text(
                 'This is where the question text will go.',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 25.0,
-                  color: Colors.white,
-                ),
+                style: TextStyle(fontSize: 25.0, color: Colors.white),
               ),
             ),
           ),
@@ -51,36 +48,23 @@ class _QuizPageState extends State<QuizPage> {
           child: Padding(
             padding: EdgeInsets.all(15.0),
             child: TextButton(
-              textColor: Colors.white,
-              color: Colors.green,
+              onPressed: null,
               child: Text(
                 'True',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20.0,
-                ),
+                style: TextStyle(fontSize: 20.0, color: Colors.white),
               ),
-              onPressed: () {
-                //The user picked true.
-              },
             ),
           ),
         ),
         Expanded(
           child: Padding(
             padding: EdgeInsets.all(15.0),
-            child: FlatButton(
-              color: Colors.red,
+            child: TextButton(
+              onPressed: null,
               child: Text(
                 'False',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.white,
-                ),
+                style: TextStyle(fontSize: 20.0, color: Colors.white),
               ),
-              onPressed: () {
-                //The user picked false.
-              },
             ),
           ),
         ),
