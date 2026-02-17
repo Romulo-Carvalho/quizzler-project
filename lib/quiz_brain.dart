@@ -1,6 +1,8 @@
 import "question.dart";
 
 class QuizBrain {
+  
+  int _questionNumber = 0;
 
   List<Question> _questionBank = [
     Question(questionText: 'Você pode levar uma vaca para descer escadas, mas não para subir.', questionAnswer: false),
@@ -23,15 +25,27 @@ class QuizBrain {
     Question(questionText: 'O framework Flutter é mantido e desenvolvido pela Google.', questionAnswer: true),
   ];
 
-  String getQuestionText(int questionNumber){
+  void nextQuestion(){
 
-    return _questionBank[questionNumber].questionText;
+    if(_questionNumber < _questionBank.length - 1){
+      _questionNumber++;
+    }
+    else{
+      _questionNumber = 0;
+
+    }
 
   }
 
-  bool getCorrectAnswer(int questionNumber){
+  String getQuestionText(){
 
-    return _questionBank[questionNumber].questionAnswer;
+    return _questionBank[_questionNumber].questionText;
+
+  }
+
+  bool getCorrectAnswer(){
+
+    return _questionBank[_questionNumber].questionAnswer;
 
   }
   
