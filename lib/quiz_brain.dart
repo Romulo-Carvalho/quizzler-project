@@ -2,7 +2,7 @@ import "question.dart";
 
 class QuizBrain {
 
-  List<Question> questionBank = [
+  List<Question> _questionBank = [
     Question(questionText: 'Você pode levar uma vaca para descer escadas, mas não para subir.', questionAnswer: false),
     Question(questionText: 'Aproximadamente um quarto dos ossos humanos estão nos pés.', questionAnswer: true),
     Question(questionText: 'O sangue de uma lesma é verde.', questionAnswer: true),
@@ -22,5 +22,17 @@ class QuizBrain {
     Question(questionText: 'A Grande Muralha da China é visível da Lua a olho nu.', questionAnswer: false),
     Question(questionText: 'O framework Flutter é mantido e desenvolvido pela Google.', questionAnswer: true),
   ];
+
+  String getQuestionText(int questionNumber){
+
+    return _questionBank[questionNumber].questionText;
+
+  }
+
+  bool getCorrectAnswer(int questionNumber){
+
+    return _questionBank[questionNumber].questionAnswer;
+
+  }
   
 }

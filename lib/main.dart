@@ -51,7 +51,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizBrain.questionBank[questionNumber].questionText,
+                quizBrain.getQuestionText(questionNumber),
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 25.0, color: Colors.white),
               ),
@@ -64,7 +64,7 @@ class _QuizPageState extends State<QuizPage> {
             child: TextButton(
               style: TextButton.styleFrom(backgroundColor: Colors.green),
               onPressed: () {
-                bool corretAnswer = quizBrain.questionBank[questionNumber].questionAnswer;
+                bool corretAnswer = quizBrain.getCorrectAnswer(questionNumber);
 
                 if (corretAnswer == true) {
                   print('user got it right');
@@ -88,7 +88,7 @@ class _QuizPageState extends State<QuizPage> {
             child: TextButton(
               style: TextButton.styleFrom(backgroundColor: Colors.red),
               onPressed: () {
-                bool corretAnswer = quizBrain.questionBank[questionNumber].questionAnswer;
+                bool corretAnswer = quizBrain.getCorrectAnswer(questionNumber);
 
                 if (corretAnswer == false) {
                   print('user got it right');
