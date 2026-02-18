@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'quiz_brain.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 QuizBrain quizBrain = QuizBrain();
 
@@ -13,12 +14,7 @@ class Quizzler extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.grey.shade900,
-        body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0),
-            child: QuizPage(),
-          ),
-        ),
+        body: SafeArea(child: QuizPage()),
       ),
       debugShowCheckedModeBanner: false,
     );
@@ -35,73 +31,121 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
 
-  void checkAnswer(bool userPikedAnswer){
+  int finalScore = 0;
+  int finalSize = 0;
+
+  void checkAnswer(bool userPikedAnswer) {
     bool corretAnswer = quizBrain.getCorrectAnswer();
 
     setState(() {
 
       if (userPikedAnswer == corretAnswer) {
-        scoreKeeper.add(Icon(Icons.check, color: Colors.green,));
+        scoreKeeper.add(Icon(Icons.check, color: Colors.green));
+        finalScore++;
+        finalSize++;
       } else {
-        scoreKeeper.add(Icon(Icons.close, color: Colors.red,));
+        scoreKeeper.add(Icon(Icons.close, color: Colors.red));
+        finalSize++;
       }
-      
-      quizBrain.nextQuestion();
 
+      if (quizBrain.isFinished() == true) {
+        Alert(
+          style: AlertStyle(
+            backgroundColor: Color(0xff1e1e2e),
+            titleStyle: TextStyle(color: Color(0xfff1f5f9)),
+            descStyle: TextStyle(color: Color(0xfff1f5f9)),
+          ),
+          context: context,
+          type: AlertType.none,
+          title: "Fim do quiz!",
+          desc:
+              "Parabéns! \n Sua pontuação foi: \n $finalScore/$finalSize",
+          buttons: [
+            DialogButton(
+              color: Color(0xff8b5cf6),
+              onPressed: () {
+                setState(() {
+                  quizBrain.reset();
+                  scoreKeeper.clear();
+                  finalScore = 0;
+                  finalSize = 0;
+                });
+                Navigator.pop(context);
+              },
+              width: 120,
+              child: Text(
+                "Reiniciar",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ),
+          ],
+        ).show();
+      }
+
+      quizBrain.nextQuestion();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Expanded(
-          flex: 5,
-          child: Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Center(
-              child: Text(
-                quizBrain.getQuestionText(),
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 25.0, color: Colors.white),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomRight,
+          colors: [Color(0xff2d0b31), Color(0xff1a0a20)],
+        ),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Expanded(
+            flex: 5,
+            child: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Center(
+                child: Text(
+                  quizBrain.getQuestionText(),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 25.0, color: Colors.white),
+                ),
               ),
             ),
           ),
-        ),
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.all(15.0),
-            child: TextButton(
-              style: TextButton.styleFrom(backgroundColor: Colors.green),
-              onPressed: () {
-                checkAnswer(true);
-              },
-              child: Text(
-                'True',
-                style: TextStyle(fontSize: 20.0, color: Colors.white),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.all(15.0),
+              child: TextButton(
+                style: TextButton.styleFrom(backgroundColor: Colors.green),
+                onPressed: () {
+                  checkAnswer(true);
+                },
+                child: Text(
+                  'True',
+                  style: TextStyle(fontSize: 20.0, color: Colors.white),
+                ),
               ),
             ),
           ),
-        ),
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.all(15.0),
-            child: TextButton(
-              style: TextButton.styleFrom(backgroundColor: Colors.red),
-              onPressed: () {
-                checkAnswer(false);
-              },
-              child: Text(
-                'False',
-                style: TextStyle(fontSize: 20.0, color: Colors.white),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.all(15.0),
+              child: TextButton(
+                style: TextButton.styleFrom(backgroundColor: Colors.red),
+                onPressed: () {
+                  checkAnswer(false);
+                },
+                child: Text(
+                  'False',
+                  style: TextStyle(fontSize: 20.0, color: Colors.white),
+                ),
               ),
             ),
           ),
-        ),
-        Row(children: scoreKeeper),
-      ],
+          Wrap(children: scoreKeeper),
+        ],
+      ),
     );
   }
 }

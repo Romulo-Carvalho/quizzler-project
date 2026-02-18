@@ -18,21 +18,12 @@ class QuizBrain {
     Question(questionText: 'Um compilador traduz o código-fonte diretamente em linguagem de máquina ou código intermediário.', questionAnswer: true),
     Question(questionText: 'Em Dart, os tipos "int" e "double" são escritos com a primeira letra maiúscula.', questionAnswer: false),
     Question(questionText: 'O número zero é considerado um número par.', questionAnswer: true),
-    Question(questionText: 'SSD significa "Solid State Drive" e não possui partes móveis.', questionAnswer: true),
-    Question(questionText: 'No Minecraft, é possível dormir em uma cama no Nether sem que ela exploda.', questionAnswer: false),
-    Question(questionText: 'Uma Gramática Livre de Contexto pode ser reconhecida por um Autômato de Pilha.', questionAnswer: true),
-    Question(questionText: 'A Grande Muralha da China é visível da Lua a olho nu.', questionAnswer: false),
-    Question(questionText: 'O framework Flutter é mantido e desenvolvido pela Google.', questionAnswer: true),
   ];
 
   void nextQuestion(){
 
     if(_questionNumber < _questionBank.length - 1){
       _questionNumber++;
-    }
-    else{
-      _questionNumber = 0;
-
     }
 
   }
@@ -48,5 +39,21 @@ class QuizBrain {
     return _questionBank[_questionNumber].questionAnswer;
 
   }
-  
+
+  bool isFinished(){
+    if(_questionNumber < _questionBank.length - 1){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
+
+  void reset(){
+    _questionNumber = 0;
+  }
+
+  void cleanList(){
+
+  }
 }
