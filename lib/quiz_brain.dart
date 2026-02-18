@@ -4,7 +4,7 @@ class QuizBrain {
   
   int _questionNumber = 0;
 
-  List<Question> _questionBank = [
+  final List<Question> _questionBank = [
     Question(questionText: 'Você pode levar uma vaca para descer escadas, mas não para subir.', questionAnswer: false),
     Question(questionText: 'Aproximadamente um quarto dos ossos humanos estão nos pés.', questionAnswer: true),
     Question(questionText: 'O sangue de uma lesma é verde.', questionAnswer: true),
